@@ -63,8 +63,13 @@ export class OpenAI {
           ),
         },
         method: options?.method ?? "POST",
+        duplex: body?.stream ? "half" : undefined,
       },
     );
+
+    if (body?.stream) {
+      return response;
+    }
 
     return await response.json();
   }
